@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
     ACMIChallenge acmi;
     char rawinput[15] = "255.255.252.0";
     int result = acmi.network_to_bits(rawinput);
+    cout << result << endl;
     return 0;
 }
 
