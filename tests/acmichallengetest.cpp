@@ -25,7 +25,7 @@ void testCidrBitsPass(){
     
     int expected = 22;
     if (result != expected) {
-        std::cout << "%TEST_FAILED% time=0 testname=testCidrBitsPass (acmichallengetest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testCidrBitsPass (acmichallengetest) message=netmaskt to bits failed!" << std::endl;
     } 
 }
 
@@ -36,7 +36,7 @@ void testCidrBitsFailOutofBoundsError(){
     
     int expected = -1;
     if (result != expected) {
-        std::cout << "%TEST_FAILED% time=0 testname=testCidrBitsFailOutofBoundsError (acmichallengetest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% time=0 testname=testCidrBitsFailOutofBoundsError (acmichallengetest) message=netmask out of bounds!" << std::endl;
     } 
 }
 
