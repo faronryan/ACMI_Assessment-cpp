@@ -18,10 +18,15 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    ACMIChallenge acmi;
-    char rawinput[15] = "255.255.252.0";
-    int result = acmi.network_to_bits(rawinput);
-    cout << result << endl;
+    // Main function is used for debugging via IDE
+    ACMIChallenge acmi; 
+    string file_name = "inputs/inputs01.txt"; // using 1 file in test case
+    
+    vector<string> results;
+    acmi.find_mac_address(file_name, results);
+    for(std::vector<string>::iterator it = results.begin(); it != results.end(); ++it) {
+        cout << (*it) << endl;
+    } 
     return 0;
 }
 

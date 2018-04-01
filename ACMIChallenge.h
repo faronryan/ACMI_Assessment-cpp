@@ -10,6 +10,11 @@
 
 #include <string.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <regex>
+#include <exception>
 
 using namespace std;
 
@@ -24,7 +29,9 @@ private:
 
 class ACMIChallenge {
 public:
-	int network_to_bits(char *netmask);
+	int network_to_bits(char *netmask); 
+        void find_mac_address(string filename,  
+                              vector<string> &results);
         
 private:
 	int check_bounds(char *netmask);
