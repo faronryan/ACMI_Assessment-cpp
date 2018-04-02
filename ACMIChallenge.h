@@ -15,8 +15,13 @@
 #include <vector>
 #include <regex>
 #include <exception>
+#include <boost/algorithm/string.hpp>
+#include <boost/unordered_map.hpp>
 
 using namespace std;
+using namespace boost;
+
+typedef unordered_map<std::string, void*> HashMap;
 
 class OutofBoundsError{
 public:
@@ -32,11 +37,11 @@ public:
 	int network_to_bits(char *netmask); 
         void find_mac_address(string filename,  
                               vector<string> &results);
+        HashMap* explodereport(vector<string> rawinput);
         
 private:
-	int check_bounds(char *netmask);
-        const char* NETMASK_LOOKUP_TABLE[32] =
-   {"128.0.0.0","192.0.0.0","224.0.0.0","240.0.0.0",
+	const char* NETMASK_LOOKUP_TABLE[32] =
+        {"128.0.0.0","192.0.0.0","224.0.0.0","240.0.0.0",
 	"248.0.0.0","252.0.0.0","254.0.0.0","255.0.0.0",
 	"255.128.0.0","255.192.0.0","255.224.0.0",
 	"255.240.0.0","255.248.0.0","255.252.0.0","255.254.0.0",
@@ -46,6 +51,10 @@ private:
 	"255.255.255.128","255.255.255.192","255.255.255.224",
 	"255.255.255.240","255.255.255.248","255.255.255.252",
 	"255.255.255.254","255.255.255.255"};
+        
+        // Helper functions 
+        int check_bounds(char *netmask);
+        void* exploder_helper(vector<string> lst, int index, HashMap *hsh);
 };
 
 #endif /* ACMICHALLENGE_H_ */

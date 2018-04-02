@@ -7,8 +7,6 @@
 
 #include "ACMIChallenge.h"
 
-using namespace std;
-
 int ACMIChallenge::network_to_bits(char *netmask) {
 	try { 
 		int result = check_bounds(netmask);
@@ -58,4 +56,62 @@ void ACMIChallenge::find_mac_address(string filename,
     } catch(...){
        cout << "Something bad happened, alert Sys Admin!" << endl;
     }    
+}
+
+HashMap* ACMIChallenge::explodereport(vector<string> rawinput) {
+    
+    HashMap *dumper = new HashMap();
+    // Usually I would mix in python code here from the 
+    // boost library however to stay true to C++ code assessment 
+    // I didn't. Instead I'm using some of the boost helper functions.
+    // Much longer piece of code! 
+    for(std::vector<string>::iterator it = rawinput.begin(); 
+            it != rawinput.end(); ++it) {
+        string line = (*it);
+        vector<string> lst; 
+        typedef split_iterator<string::iterator> string_split_iterator;
+        for(string_split_iterator It=
+            make_split_iterator(line, first_finder("|", is_iequal()));
+            It!=string_split_iterator(); 
+            ++It)
+        {
+            lst.push_back(copy_range<std::string>(*It));
+        }
+        
+        exploder_helper(lst,0,dumper);
+    }
+    
+    return 0;
+} 
+
+void* ACMIChallenge::exploder_helper(vector<string> lst, int index, HashMap *hsh){
+    
+    if( index < lst.size() -1)
+    {
+        if(hsh->at(lst[index])){ 
+            hsh->at(lst[index]) = exploder_helper(lst, index+1,
+                    (HashMap*)hsh->at(lst[index]));
+            return hsh;
+        }
+        else{
+            hsh->at(lst[index]) = exploder_helper(lst, index+1,
+                    new HashMap);
+            return hsh;
+        }
+    }
+    else{
+        return &lst[index];
+    }
+    
+    /*if index < (len(lst) -1):
+        if hsh.has_key(str(lst[index])):
+            hsh[str(lst[index])] = exploder_helper(lst, index+1, 
+                                                   hsh[str(lst[index])])
+            return hsh
+        else:
+            hsh[str(lst[index])] = exploder_helper(lst, index+1, {})
+            return hsh        
+    else:
+        return lst[index]
+     */ 
 }

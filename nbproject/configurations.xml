@@ -43,6 +43,16 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../boost/boost_1_66_0/</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../boost/boost_1_66_0/libs</pElem>
+          </linkerAddLib>
+        </linkerTool>
       </compileType>
       <item path="ACMIChallenge.cpp" ex="false" tool="1" flavor2="0">
       </item>

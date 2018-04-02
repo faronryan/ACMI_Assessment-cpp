@@ -63,7 +63,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-L../boost/boost_1_66_0/libs
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -76,12 +76,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/acmicodechallenge-cpp.exe: ${OBJECTFI
 ${OBJECTDIR}/ACMIChallenge.o: ACMIChallenge.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ACMIChallenge.o ACMIChallenge.cpp
+	$(COMPILE.cc) -g -I../boost/boost_1_66_0/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ACMIChallenge.o ACMIChallenge.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../boost/boost_1_66_0/ -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -98,7 +98,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/acmichallengetest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/acmichallengetest.o: tests/acmichallengetest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/acmichallengetest.o tests/acmichallengetest.cpp
+	$(COMPILE.cc) -g -I../boost/boost_1_66_0/ -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/acmichallengetest.o tests/acmichallengetest.cpp
 
 
 ${OBJECTDIR}/ACMIChallenge_nomain.o: ${OBJECTDIR}/ACMIChallenge.o ACMIChallenge.cpp 
@@ -109,7 +109,7 @@ ${OBJECTDIR}/ACMIChallenge_nomain.o: ${OBJECTDIR}/ACMIChallenge.o ACMIChallenge.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ACMIChallenge_nomain.o ACMIChallenge.cpp;\
+	    $(COMPILE.cc) -g -I../boost/boost_1_66_0/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ACMIChallenge_nomain.o ACMIChallenge.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/ACMIChallenge.o ${OBJECTDIR}/ACMIChallenge_nomain.o;\
 	fi
@@ -122,7 +122,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
+	    $(COMPILE.cc) -g -I../boost/boost_1_66_0/ -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
