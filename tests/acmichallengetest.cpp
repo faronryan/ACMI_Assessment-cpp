@@ -63,7 +63,31 @@ void testFindMacAddresFile1(){
         std::cout << "message = expected:" + expected << endl;
     }
 } 
+
+void testNestedHashConstructor(){
+    ACMIChallenge acmi; 
     
+    vector<string> rawinput;
+    rawinput.push_back("app1|server1|uptime|5");
+    rawinput.push_back("app1|server1|loadavg|0.01 0.02 0.03");
+    rawinput.push_back("app1|server1|conn1|state|up");
+    rawinput.push_back("app1|server2|uptime|10");
+    rawinput.push_back("app1|server2|loadavg|0.11 0.22 0.33");
+    rawinput.push_back("app1|server2|conn1|state|down");
+    rawinput.push_back("app1|running|true");
+    HashMap *results = acmi.explodereport(rawinput); 
+    HashMap *expected = any_cast<HashMap*>(results->at("app1"));
+    BOOST_FOREACH(HashMap::value_type h, *(expected)){
+        if(h.first == "server1" || h.first == "server2" || h.first == "running")
+            continue; 
+        {
+            std::cout << "%TEST_FAILED% time=0 testname=testNestedHashConstructor (acmichallengetest)";
+            std::cout << "message = map does not contain" + h.first << endl;
+            break;
+        }
+    }       
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% acmichallengetest" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -77,8 +101,12 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_FINISHED% time=0 testCidrBitsFailOutofBoundsError (acmichallengetest)" << std::endl;
 
     std::cout << "%TEST_STARTED% testFindMacAddresFile1 (acmichallengetest)" << std::endl;
-    testFindMacAddresFile1();
+    //testFindMacAddresFile1();
     std::cout << "%TEST_FINISHED% time=0 testFindMacAddresFile1 (acmichallengetest)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testNestedHashConstructor (acmichallengetest)" << std::endl;
+    testNestedHashConstructor();
+    std::cout << "%TEST_FINISHED% time=0 testNestedHashConstructor (acmichallengetest)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
