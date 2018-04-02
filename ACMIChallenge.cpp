@@ -58,7 +58,7 @@ void ACMIChallenge::find_mac_address(string filename,
     }    
 }
 
-void ACMIChallenge::explodereport(vector<string> rawinput) {
+HashMap* ACMIChallenge::explodereport(vector<string> rawinput) {
     
     HashMap *dumper = new HashMap();
     // Usually I would mix in python code here from the 
@@ -80,6 +80,11 @@ void ACMIChallenge::explodereport(vector<string> rawinput) {
         
         exploder_helper(lst,0,dumper);
     }
+    
+    // custom dumper
+    custom_dumper(dumper, "");
+    
+    return dumper;
 } 
 
 boost::any ACMIChallenge::exploder_helper(vector<string> lst, int index, 
@@ -100,5 +105,19 @@ boost::any ACMIChallenge::exploder_helper(vector<string> lst, int index,
     }
     else{ 
         return lst.at(index);
+    }
+}
+
+void ACMIChallenge::custom_dumper(HashMap* hsh, string tabs){
+    BOOST_FOREACH(HashMap::value_type h, *(hsh)){
+       
+       if(h.second.type() != typeid(string)){
+           cout << tabs << h.first << " -> " << endl;
+           string add_tab = tabs + "\t";
+           custom_dumper(any_cast<HashMap*>(h.second), add_tab);
+       }
+       else{
+           cout << tabs << h.first << " = " << any_cast<string>(h.second) <<endl;
+       }
     }
 }

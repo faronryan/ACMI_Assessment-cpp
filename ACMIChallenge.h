@@ -18,6 +18,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/any.hpp>
+#include <boost/foreach.hpp>
 
 using namespace std;
 using namespace boost;
@@ -38,7 +39,7 @@ public:
 	int network_to_bits(char *netmask); 
         void find_mac_address(string filename,  
                               vector<string> &results);
-        void explodereport(vector<string> rawinput);
+        HashMap* explodereport(vector<string> rawinput);
         
 private:
 	const char* NETMASK_LOOKUP_TABLE[32] =
@@ -57,6 +58,7 @@ private:
         int check_bounds(char *netmask);
         boost::any exploder_helper(vector<string> lst, int index, 
                                    boost::any new_hash);
+        void custom_dumper(HashMap* hsh, string tabs); // prints hash
 };
 
 #endif /* ACMICHALLENGE_H_ */
