@@ -17,12 +17,13 @@
 #include <exception>
 #include <boost/algorithm/string.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/any.hpp>
 
 using namespace std;
 using namespace boost;
 
-typedef unordered_map<std::string, void*> HashMap;
-
+typedef unordered_map<std::string, boost::any> HashMap;
+   
 class OutofBoundsError{
 public:
 	OutofBoundsError(string message)
@@ -37,7 +38,7 @@ public:
 	int network_to_bits(char *netmask); 
         void find_mac_address(string filename,  
                               vector<string> &results);
-        HashMap* explodereport(vector<string> rawinput);
+        void explodereport(vector<string> rawinput);
         
 private:
 	const char* NETMASK_LOOKUP_TABLE[32] =
@@ -54,7 +55,8 @@ private:
         
         // Helper functions 
         int check_bounds(char *netmask);
-        void* exploder_helper(vector<string> lst, int index, HashMap *hsh);
+        boost::any exploder_helper(vector<string> lst, int index, 
+                                   boost::any new_hash);
 };
 
 #endif /* ACMICHALLENGE_H_ */

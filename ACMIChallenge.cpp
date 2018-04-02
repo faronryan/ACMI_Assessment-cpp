@@ -58,7 +58,7 @@ void ACMIChallenge::find_mac_address(string filename,
     }    
 }
 
-HashMap* ACMIChallenge::explodereport(vector<string> rawinput) {
+void ACMIChallenge::explodereport(vector<string> rawinput) {
     
     HashMap *dumper = new HashMap();
     // Usually I would mix in python code here from the 
@@ -80,38 +80,25 @@ HashMap* ACMIChallenge::explodereport(vector<string> rawinput) {
         
         exploder_helper(lst,0,dumper);
     }
-    
-    return 0;
 } 
 
-void* ACMIChallenge::exploder_helper(vector<string> lst, int index, HashMap *hsh){
+boost::any ACMIChallenge::exploder_helper(vector<string> lst, int index, 
+                                           boost::any new_hash){
     
     if( index < lst.size() -1)
-    {
-        if(hsh->at(lst[index])){ 
-            hsh->at(lst[index]) = exploder_helper(lst, index+1,
-                    (HashMap*)hsh->at(lst[index]));
+    { 
+        HashMap *hsh = any_cast<HashMap*>(new_hash);
+        if(hsh->find(lst[index]) != hsh->end()){ 
+            (*hsh)[lst[index]] = exploder_helper(lst, index+1,
+                    hsh->at(lst[index]));
             return hsh;
         }
         else{
-            hsh->at(lst[index]) = exploder_helper(lst, index+1,
-                    new HashMap);
+            (*hsh)[lst[index]] = exploder_helper(lst, index+1,new HashMap);
             return hsh;
         }
     }
-    else{
-        return &lst[index];
+    else{ 
+        return lst.at(index);
     }
-    
-    /*if index < (len(lst) -1):
-        if hsh.has_key(str(lst[index])):
-            hsh[str(lst[index])] = exploder_helper(lst, index+1, 
-                                                   hsh[str(lst[index])])
-            return hsh
-        else:
-            hsh[str(lst[index])] = exploder_helper(lst, index+1, {})
-            return hsh        
-    else:
-        return lst[index]
-     */ 
 }
