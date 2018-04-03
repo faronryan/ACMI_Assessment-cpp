@@ -12,6 +12,7 @@
  */
 
 #include "ACMIChallenge.h"
+#include "CustomDict.h"
 using namespace std;
 
 /*
@@ -19,18 +20,10 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     // Main function is used for debugging via IDE
-    ACMIChallenge acmi; 
-    string file_name = "inputs/inputs01.txt"; // using 1 file in test case
+    string rawinput = "deer => 'park', foo => 'bar', this => 'that'";
+    CustomDict cd(rawinput); 
+    cout << cd.get("deer") << endl; 
     
-    vector<string> rawinput;
-    rawinput.push_back("app1|server1|uptime|5");
-    rawinput.push_back("app1|server1|loadavg|0.01 0.02 0.03");
-    rawinput.push_back("app1|server1|conn1|state|up");
-    rawinput.push_back("app1|server2|uptime|10");
-    rawinput.push_back("app1|server2|loadavg|0.11 0.22 0.33");
-    rawinput.push_back("app1|server2|conn1|state|down");
-    rawinput.push_back("app1|running|true");
-    acmi.explodereport(rawinput); 
     return 0;
 }
 
