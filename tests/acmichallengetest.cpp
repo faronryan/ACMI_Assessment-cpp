@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include "ACMIChallenge.h"
+#include "CustomDict.h"
 /*
  * C++ Test Suite
  */
@@ -88,6 +89,32 @@ void testNestedHashConstructor(){
     }       
 }
 
+void testCustomDictConstructorInit(){
+    string rawinput = "deer => 'park', foo => 'bar', this => 'that'";
+    CustomDict result(rawinput);
+    result.delete_("this"); 
+    result.add("gnu => 'linux'"); 
+    result.modify("gnu => 'not unix'"); 
+    cout << result.get("gnu") << endl; 
+    result.modify("deer => 'venison'"); 
+    result.modify("gnu => 'emacs'"); 
+    result.deltas(); 
+    string expected ="emacs";
+    if(expected.compare(result.get("gnu")) != 0)
+    {
+        std::cout << "%TEST_FAILED% time=0 testname=testCustomDictConstructorInit (acmichallengetest)";
+        std::cout << "message = expected: " + expected << endl;
+    }
+    
+    expected ="bar";
+    
+    if(expected.compare(result.get("foo")) != 0)
+    {
+        std::cout << "%TEST_FAILED% time=0 testname=testCustomDictConstructorInit (acmichallengetest)";
+        std::cout << "message = expected: " + expected << endl;
+    }
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% acmichallengetest" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -107,6 +134,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testNestedHashConstructor (acmichallengetest)" << std::endl;
     testNestedHashConstructor();
     std::cout << "%TEST_FINISHED% time=0 testNestedHashConstructor (acmichallengetest)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testCustomDictConstructorInit (acmichallengetest)" << std::endl;
+    testCustomDictConstructorInit();   
+    std::cout << "%TEST_FINISHED% time=0 testCustomDictConstructorInit (acmichallengetest)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
