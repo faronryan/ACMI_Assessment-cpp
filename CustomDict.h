@@ -18,6 +18,7 @@
 #include <map>
 #include <regex>
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/algorithm/string/trim.hpp>
 
 using namespace std;
 

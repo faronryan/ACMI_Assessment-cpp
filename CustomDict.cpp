@@ -23,8 +23,8 @@ CustomDict::CustomDict(string dict){
         string entry = it->str();
         string key = entry.substr(0,entry.find("="));
         string value = entry.substr(entry.find(">")+1,entry.size()-1);
-        boost::replace_all(key," ", "");
-        boost::replace_all(value," ", "");
+        boost::trim(key);
+        boost::trim(value);
         boost::replace_all(value,"'", ""); 
         internal[key]=value;
         ++it;  
@@ -40,8 +40,8 @@ void CustomDict::add(string key_value) {
     string key = key_value.substr(0,key_value.find("="));
     string value = key_value.substr(key_value.find(">")+1,key_value.size()-1);
     // Just using boost for fun!
-    boost::replace_all(key," ", "");
-    boost::replace_all(value," ", "");
+    boost::trim(key);
+    boost::trim(value);
     boost::replace_all(value,"'", ""); 
     internal[key]=value;
     history[key] = "ADD "+key+" = "+value;  
@@ -57,8 +57,8 @@ void CustomDict::modify(string key_value) {
     // function since I've used it 3 times in total
     string key = key_value.substr(0,key_value.find("="));
     string value = key_value.substr(key_value.find(">")+1,key_value.size()-1);
-    boost::replace_all(key," ", "");
-    boost::replace_all(value," ", "");
+    boost::trim(key);
+    boost::trim(value);
     boost::replace_all(value,"'", ""); 
     internal[key]=value;
     history[key] = "MODIFY "+key+" = "+value;
